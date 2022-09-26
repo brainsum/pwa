@@ -1,0 +1,3 @@
+services:
+  custom_pwa.services:
+    class: Drupal\custom_pwa\Services

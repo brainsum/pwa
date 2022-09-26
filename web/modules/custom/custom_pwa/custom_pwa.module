@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Custom PWA module.
+ */
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_page_attachments().
+ */
+function custom_pwa_page_attachments(array &$attachments) {
+  if (!\Drupal::currentUser()->hasPermission('access content')) {
+    return;
+  }
+
+  $attachments['#attached']['library'][] = 'custom_pwa/push_notifications';
+
+  $manifest_link = [
+    '#tag' => 'link',
+    '#attributes' => [
+      'rel' => 'manifest',
+      'href' => Url::fromRoute('custom_pwa.manifest_json')->toString(),
+    ],
+  ];
+
+  $attachments['#attached']['html_head'][] = [$manifest_link, 'manifest'];
+
+  //$attachments['#attached']['library'][] = 'custom_pwa/serviceworker';
+
+  $installPath = Url::fromRoute('custom_pwa.service_worker')->toString();
+  $attachments['#attached']['drupalSettings']['custom_pwa']['installPath'] = $installPath;
+
+  $theme_color = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'name' => 'theme-color',
+      'content' => '#ffffff',
+    ],
+  ];
+  $attachments['#attached']['html_head'][] = [$theme_color, 'theme_color'];
+
+}

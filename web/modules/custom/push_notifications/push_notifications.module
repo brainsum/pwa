@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Push Notifications module.
+ */
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_page_attachments().
+ */
+
+function push_notifications_page_attachments(array &$attachments) {
+  if (!\Drupal::currentUser()->hasPermission('access content')) {
+    return;
+  }
+
+  $attachments['#attached']['library'][] = 'push_notifications/serviceworker';
+
+  //$config = \Drupal::config('pwa.config');
+  //$cross_origin = $config->get('cross_origin');
+
+  $manifest_link = [
+    '#tag' => 'link',
+    '#attributes' => [
+      'rel' => 'manifest',
+      'href' => Url::fromRoute('push_notifications.manifest')->toString(),
+    ],
+  ];
+
+  // Pass credentials if the site is behind HTTP auth.
+  //if ($cross_origin) {
+  //  $manifest_link['#attributes']['crossorigin'] = 'use-credentials';
+  //}
+
+  $attachments['#attached']['html_head'][] = [$manifest_link, 'manifest'];
+
+  $theme_color = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'name' => 'theme-color',
+      'content' => '#ffffff',
+    ],
+  ];
+  $attachments['#attached']['html_head'][] = [$theme_color, 'theme_color'];
+
+  // Add cache version to drupal settings.
+  //$attachments['#attached']['drupalSettings']['pwa']['cache_version'] = PWAController::pwa_get_cache_version();
+
+  $installPath = '/serviceworker';
+  //\Drupal::moduleHandler()->alter('pwa_install_path', $installPath);
+
+  $attachments['#attached']['drupalSettings']['push_notifications']['installPath'] = $installPath;
+
+}
+

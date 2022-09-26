@@ -1,0 +1,40 @@
+custom_pwa.manifest_json:
+  path: '/manifest.json'
+  defaults:
+    _title: 'Web App Manifest'
+    _controller: '\Drupal\custom_pwa\Controller\ManifestJson::build'
+    _disable_route_normalizer: 'TRUE'
+  requirements:
+    _permission: 'access content'
+
+custom_pwa.service_worker:
+  path: '/serviceworker'
+  defaults:
+    _controller: '\Drupal\custom_pwa\Controller\ServiceWorker::build'
+    _disable_route_normalizer: 'TRUE'
+  requirements:
+    _permission: 'access content'
+
+custom_pwa.push_permission_request:
+  path: '/push/request'
+  defaults:
+    _title: 'Push permission request'
+    _controller: '\Drupal\custom_pwa\Controller\PushPermissionRequest::build'
+  requirements:
+    _permission: 'access content'
+
+custom_pwa.send_push_message:
+  path: '/push/send'
+  defaults:
+    _title: 'Send push message'
+    _form: 'Drupal\custom_pwa\Form\SendPushMessage'
+  requirements:
+    _permission: 'access content'
+
+custom_pwa.gettoken:
+  path: '/gettoken'
+  defaults:
+    _title: 'myToken'
+    _controller: '\Drupal\custom_pwa\Controller\GetToken::build'
+  requirements:
+    _permission: 'access content'

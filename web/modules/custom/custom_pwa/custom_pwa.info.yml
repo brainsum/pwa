@@ -1,0 +1,5 @@
+name: Custom PWA
+type: module
+description: Integrate a progressive web application
+package: Custom
+core_version_requirement: ^9 || ^10

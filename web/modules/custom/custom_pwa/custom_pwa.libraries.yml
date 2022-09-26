@@ -1,0 +1,31 @@
+serviceworker:
+  version: VERSION
+  js:
+    js/serviceworker-load.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+
+push_permission_request:
+  version: VERSION
+  js:
+    js/push_permission_request.js: {}
+  css:
+    theme:
+      css/push_permission_request.css: {}
+
+push_notifications:
+  version: VERSION
+  js:
+    //www.gstatic.com/firebasejs/9.10.0/firebase-app-compat.js: { type: external }
+    //www.gstatic.com/firebasejs/9.10.0/firebase-messaging-compat.js: { type: external }
+    //www.gstatic.com/firebasejs/9.10.0/firebase-analytics-compat.js: { type: external }
+    js/push_notifications.js: {}
+  dependencies:
+    - core/jquery
+
+gettoken:
+  version: VERSION
+  js:
+    js/gettoken.js: {}

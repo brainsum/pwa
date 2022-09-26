@@ -1,0 +1,16 @@
+push_notifications.manifest:
+  path: '/manifest.json'
+  defaults:
+    _title: 'Manifest'
+    _controller: '\Drupal\push_notifications\Controller\ManifestJson::build'
+  requirements:
+    _permission: 'access content'
+
+push_notifications.service_workers:
+  path: '/serviceworker'
+  defaults:
+    _controller: '\Drupal\push_notifications\Controller\ServiceWorker::build'
+    _disable_route_normalizer: 'TRUE'
+  requirements:
+    _permission: 'access content'
+
